@@ -12,18 +12,16 @@ export default function TabThreeScreen() {
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
       headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
+        <Image
+          source={require('@/assets/images/tpumps-450x277.jpg')}
+          style={styles.tpumpsHeaderPicture}
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
+        <ThemedText type="title">Tips & Tricks</ThemedText>
       </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
+      <ThemedText>This page includes some tips compiled from other leads that helped them run the store efficiently.</ThemedText>
+      <Collapsible title="FAQ's about Catering Orders">
         <ThemedText>
           This app has two screens:{' '}
           <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
@@ -37,10 +35,12 @@ export default function TabThreeScreen() {
           <ThemedText type="link">Learn more</ThemedText>
         </ExternalLink>
       </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
+      <Collapsible title="How many breaks do my workers have?">
         <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
+          Usually when someone works, they start off with{' '}
+          <ThemedText type="defaultSemiBold">one 10 minute break by default</ThemedText>. However, if they are working over 5 hours, then they also have{' '}
+          <ThemedText type="defaultSemiBold">an unpaid 30 minute break</ThemedText>. If they work more than{' '}
+          <ThemedText type="italic">6 hours</ThemedText>, then they have{' '} <ThemedText type="defaultSemiBold">an unpaid 30 minute break</ThemedText>
         </ThemedText>
       </Collapsible>
       <Collapsible title="Images">
@@ -105,5 +105,12 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
+  },
+  tpumpsHeaderPicture: {
+    height: 250,
+    width: 390,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
   },
 });

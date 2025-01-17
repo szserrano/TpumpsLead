@@ -12,7 +12,7 @@ export default function HomeScreen() {
       headerImage={
         <Image
           source={require('@/assets/images/tpumps-logo.png')}
-          style={styles.reactLogo}
+          style={styles.tpumpsLogo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
+  tpumpsLogo: {
     height: 250,
     width: 390,
     bottom: 0,
