@@ -5,7 +5,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'italic';
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'italic' | 'italicUnderline';
 };
 
 export function ThemedText({
@@ -27,6 +27,7 @@ export function ThemedText({
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'link' ? styles.link : undefined,
         type === 'italic' ? styles.italic : undefined,
+        type === 'italicUnderline' ? styles.italicUnderline : undefined,
         style,
       ]}
       {...rest}
@@ -60,6 +61,12 @@ const styles = StyleSheet.create({
   },
   italic: {
     fontSize: 16,
+    lineHeight: 24,
+    fontStyle: 'italic',
+  },
+  italicUnderline: {
+    fontSize: 16,
+    textDecorationLine: 'underline',
     lineHeight: 24,
     fontStyle: 'italic',
   }

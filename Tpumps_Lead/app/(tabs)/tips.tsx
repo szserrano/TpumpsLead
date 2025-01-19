@@ -1,5 +1,5 @@
-import { StyleSheet, Image, Platform } from 'react-native';
-
+import { StyleSheet, Image, Platform} from 'react-native';
+import Unorderedlist from 'react-native-unordered-list';
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -38,12 +38,17 @@ export default function TabThreeScreen() {
       <Collapsible title="How many breaks do my workers have?">
         <ThemedText>
           Usually when someone works, they start off with{' '}
-          <ThemedText type="defaultSemiBold">one 10 minute break by default</ThemedText>. However, if they are working over 5 hours, then they also have{' '}
+          <Unorderedlist>
+            <ThemedText type="defaultSemiBold">Test</ThemedText>
+            <ThemedText type="defaultSemiBold">Test2</ThemedText>
+          </Unorderedlist>
+          <ThemedText type="defaultSemiBold">one 10 minute break by default</ThemedText>. However, if they are working over{' '}
+          <ThemedText type="italicUnderline">5 hours and 30 minutes</ThemedText>, then they also have{' '}
           <ThemedText type="defaultSemiBold">an unpaid 30 minute break</ThemedText>. If they work more than{' '}
-          <ThemedText type="italic">6 hours</ThemedText>, then they have{' '} <ThemedText type="defaultSemiBold">an unpaid 30 minute break</ThemedText>
+          <ThemedText type="italicUnderline">6 hours</ThemedText>, then they have{' '} <ThemedText type="defaultSemiBold">an unpaid 30 minute break</ThemedText>
         </ThemedText>
       </Collapsible>
-      <Collapsible title="Images">
+      <Collapsible title="How to Make A Sample Batch For Customers">
         <ThemedText>
           For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
           <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
@@ -54,7 +59,7 @@ export default function TabThreeScreen() {
           <ThemedText type="link">Learn more</ThemedText>
         </ExternalLink>
       </Collapsible>
-      <Collapsible title="Custom fonts">
+      <Collapsible title="Closing Tasks">
         <ThemedText>
           Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
           <ThemedText style={{ fontFamily: 'SpaceMono' }}>
