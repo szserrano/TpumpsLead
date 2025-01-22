@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform} from 'react-native';
+import { StyleSheet, Image, Platform, View} from 'react-native';
 import Unorderedlist from 'react-native-unordered-list';
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
@@ -37,15 +37,12 @@ export default function TabThreeScreen() {
       </Collapsible>
       <Collapsible title="How many breaks do my workers have?">
         <ThemedText>
-          Usually when someone works, they start off with{' '}
-          <Unorderedlist>
-            <ThemedText type="defaultSemiBold">Test</ThemedText>
-            <ThemedText type="defaultSemiBold">Test2</ThemedText>
-          </Unorderedlist>
-          <ThemedText type="defaultSemiBold">one 10 minute break by default</ThemedText>. However, if they are working over{' '}
-          <ThemedText type="italicUnderline">5 hours and 30 minutes</ThemedText>, then they also have{' '}
-          <ThemedText type="defaultSemiBold">an unpaid 30 minute break</ThemedText>. If they work more than{' '}
-          <ThemedText type="italicUnderline">6 hours</ThemedText>, then they have{' '} <ThemedText type="defaultSemiBold">an unpaid 30 minute break</ThemedText>
+          Here's the general breakdown of worker's breaks:
+        </ThemedText>
+        <ThemedText>
+        <Unorderedlist bulletUnicode={0x2022} color='white'><ThemedText type="italic">Less than 5 Hours: <ThemedText type="defaultSemiBold">One 10-minute break.</ThemedText></ThemedText></Unorderedlist>
+        <Unorderedlist bulletUnicode={0x2022} color='white'><ThemedText type="italic">Between 5 Hours and 30 Minutes and 6 Hours:{' '}<ThemedText type="defaultSemiBold">One unpaid 30-minute break and one 10-minute break.</ThemedText></ThemedText></Unorderedlist>
+        <Unorderedlist bulletUnicode={0x2022} color='white'><ThemedText type="italic">More than 6 Hours:{' '}<ThemedText type="defaultSemiBold">One unpaid 30-minute break and two 10-minute breaks.</ThemedText></ThemedText></Unorderedlist>
         </ThemedText>
       </Collapsible>
       <Collapsible title="How to Make A Sample Batch For Customers">
@@ -117,5 +114,13 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  bulletPoint: {
+    padding: 5,
+  },
+  middle: {
+    flex: 1,
+    backgroundColor: 'beige',
+    borderWidth: 5,
   },
 });
