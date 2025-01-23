@@ -7,22 +7,22 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { IconSymbol } from '@/components/ui/IconSymbol';
 
-export default function TabFiveScreen() {
+export default function TabTwoScreen() {
   return (
     <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#0d8c8c' }}
+      headerBackgroundColor={{ light: '#D0D0D0', dark: '#610615' }}
       headerImage={
         <IconSymbol
           size={310}
-          color="#0ddede"
-          name="square.and.arrow.up"
+          color="#808080"
+          name="person.fill"
           style={styles.headerImage}
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Reports</ThemedText>
+        <ThemedText type="title">Profile</ThemedText>
       </ThemedView>
-      <ThemedText>This page will allow you to take pictures of your cash report and send them to the appropriate email (reports@tpumps.com).</ThemedText>
+      <ThemedText>This page will support profile editing once authorization is implemented.</ThemedText>
     </ParallaxScrollView>
   );
 }
