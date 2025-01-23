@@ -48,3 +48,6 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+Within the dependencies there is a third-party react-native library used for unordered lists. It should be installed when installing dependencies in the package.json file. If not, here is the command to install it manually:
+npm install react-native-unordered-list --save

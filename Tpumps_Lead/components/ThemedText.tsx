@@ -5,7 +5,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
+  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'italic' | 'italicUnderline' | 'defaultSemiBoldUnderline';
 };
 
 export function ThemedText({
@@ -26,6 +26,9 @@ export function ThemedText({
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
         type === 'link' ? styles.link : undefined,
+        type === 'italic' ? styles.italic : undefined,
+        type === 'italicUnderline' ? styles.italicUnderline : undefined,
+        type === 'defaultSemiBoldUnderline' ? styles.defaultSemiBoldUnderline : undefined,
         style,
       ]}
       {...rest}
@@ -43,6 +46,12 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     fontWeight: '600',
   },
+  defaultSemiBoldUnderline: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontWeight: '600',
+    textDecorationLine: 'underline'
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -57,4 +66,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#0a7ea4',
   },
+  italic: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontStyle: 'italic',
+  },
+  italicUnderline: {
+    fontSize: 16,
+    textDecorationLine: 'underline',
+    lineHeight: 24,
+    fontStyle: 'italic',
+  }
 });

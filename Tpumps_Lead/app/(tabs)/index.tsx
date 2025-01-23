@@ -11,13 +11,20 @@ export default function HomeScreen() {
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
+          source={require('@/assets/images/tpumps-logo.png')}
+          style={styles.tpumpsLogo}
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText type="title">Welcome to the Tpumps Lead App!</ThemedText>
         <HelloWave />
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">This is your go-to tool to manage your store as a lead!</ThemedText>
+        <ThemedText>
+          Soon, <ThemedText type="defaultSemiBold">Worker Breaks</ThemedText> will be implemented on this page.
+          It will grab shift times of additional workers that overlap your shift and calculate when to send them on their much-deserved breaks.
+        </ThemedText>
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
@@ -54,6 +61,7 @@ export default function HomeScreen() {
   );
 }
 
+{/* Optimized style object used for this specific page */}
 const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
@@ -64,9 +72,9 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
+  tpumpsLogo: {
+    height: 250,
+    width: 390,
     bottom: 0,
     left: 0,
     position: 'absolute',
