@@ -9,7 +9,18 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import { useState } from 'react';
 
 export default function TabFourScreen() {
-  const [number, setNumber] = useState('');
+  const [number20s, setNumber20s] = useState('');
+  const [number10s, setNumber10s] = useState('');
+  const [number5s, setNumber5s] = useState('');
+  const [number1s, setNumber1s] = useState('');
+  const [numberCent, setNumberCent] = useState('');
+  
+  const [total, setTotal] = useState(0);
+
+  const calculateTotal = () => {
+    const result = (parseInt(number20s) * 20) + (parseInt(number10s) * 10) + (parseInt(number5s) * 5) + parseInt(number1s) + parseFloat(numberCent);
+    setTotal(result);
+  };
 
   return (
     <ParallaxScrollView
@@ -30,8 +41,8 @@ export default function TabFourScreen() {
       <ThemedView style={styles.inputBox}>
           <TextInput 
               keyboardType='numeric' 
-              value={number} 
-              onChangeText={text => setNumber(text)} 
+              value={number20s} 
+              onChangeText={text => setNumber20s(text)} 
               placeholder="How many $20 bills?"
               placeholderTextColor='grey'
           />
@@ -40,15 +51,15 @@ export default function TabFourScreen() {
           <ThemedText>x $20 = </ThemedText>
         </ThemedView>
         <ThemedView style={styles.outputBox}>
-          <ThemedText>calculate</ThemedText>
+          <ThemedText>{parseInt(number20s) * 20}</ThemedText>
         </ThemedView>
       </ThemedView>
       <ThemedView style={styles.billRowContainer}>
         <ThemedView style={styles.inputBox}>
           <TextInput 
               keyboardType='numeric' 
-              value={number} 
-              onChangeText={text => setNumber(text)} 
+              value={number10s} 
+              onChangeText={text => setNumber10s(text)} 
               placeholder="How many $10 bills?"
               placeholderTextColor='grey'
           />
@@ -57,15 +68,15 @@ export default function TabFourScreen() {
           <ThemedText>x $10 = </ThemedText>
         </ThemedView>
         <ThemedView style={styles.outputBox}>
-          <ThemedText>calculate</ThemedText>
+          <ThemedText>{parseInt(number10s) * 10}</ThemedText>
         </ThemedView>
       </ThemedView>
       <ThemedView style={styles.billRowContainer}>
       <ThemedView style={styles.inputBox}>
           <TextInput 
               keyboardType='numeric' 
-              value={number} 
-              onChangeText={text => setNumber(text)} 
+              value={number5s} 
+              onChangeText={text => setNumber5s(text)} 
               placeholder="How many $5 bills?"
               placeholderTextColor='grey'
           />
@@ -74,15 +85,15 @@ export default function TabFourScreen() {
           <ThemedText>x $5 = </ThemedText>
         </ThemedView>
         <ThemedView style={styles.outputBox}>
-          <ThemedText>calculate</ThemedText>
+          <ThemedText>{parseInt(number5s) * 5}</ThemedText>
         </ThemedView>
       </ThemedView>
       <ThemedView style={styles.billRowContainer}>
         <ThemedView style={styles.inputBox}>
           <TextInput 
               keyboardType='numeric' 
-              value={number} 
-              onChangeText={text => setNumber(text)} 
+              value={number1s} 
+              onChangeText={text => setNumber1s(text)} 
               placeholder="How many $1 bills?"
               placeholderTextColor='grey'
           />
@@ -91,22 +102,25 @@ export default function TabFourScreen() {
           <ThemedText>x $1 = </ThemedText>
         </ThemedView>
         <ThemedView style={styles.outputBox}>
-          <ThemedText>calculate</ThemedText>
+          <ThemedText>{number1s}</ThemedText>
         </ThemedView>
       </ThemedView>
       <ThemedView style={styles.billRowContainer}>
         <ThemedView style={styles.inputBox}>
           <TextInput 
               keyboardType='numeric' 
-              value={number} 
-              onChangeText={text => setNumber(text)} 
+              value={numberCent} 
+              onChangeText={text => setNumberCent(text)} 
               placeholder="How much in coins?"
               placeholderTextColor='grey'
           />
         </ThemedView>
         <ThemedView style={styles.outputBox}>
-          <ThemedText>calculate</ThemedText>
+          <ThemedText>{numberCent}</ThemedText>
         </ThemedView>
+      </ThemedView>
+      <ThemedView style={styles.totalBox}>
+        <ThemedText>Total = {total}</ThemedText>
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -149,8 +163,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     borderWidth: 2,
   },
-  picker: {
-    height: 50,
-    width: 200,
+  totalBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'green',
+    borderWidth: 2,
   }
 });
