@@ -1,5 +1,6 @@
-import { StyleSheet, TextInput, Image, Platform } from 'react-native';
+import { StyleSheet, TextInput, Button, Image, Platform } from 'react-native';
 
+import { NumericFormat } from 'react-number-format';
 import { Collapsible } from '@/components/Collapsible';
 import { ExternalLink } from '@/components/ExternalLink';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -120,7 +121,10 @@ export default function TabFourScreen() {
         </ThemedView>
       </ThemedView>
       <ThemedView style={styles.totalBox}>
-        <ThemedText>Total = {total}</ThemedText>
+        <ThemedText>Total = ${total.toFixed(2)}</ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.calculateBox}>
+        <Button title="Calculate!" onPress={calculateTotal}/>
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -169,6 +173,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'green',
+    borderWidth: 2,
+  },
+  calculateBox: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
     borderWidth: 2,
   }
 });
