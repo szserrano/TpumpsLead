@@ -118,7 +118,7 @@ export default function TabFourScreen() {
             />
           </ThemedView>
           <ThemedView style={styles.billRowContainer}>
-          <ThemedView style={styles.inputWrapper}>
+            <ThemedView style={styles.inputWrapper}>
               <TextInput 
                   style={styles.inputBox} 
                   keyboardType='numeric' 
@@ -154,7 +154,7 @@ export default function TabFourScreen() {
             </ThemedView>
           </ThemedView>
           <ThemedView style={styles.billRowContainer}>
-          <ThemedView style={styles.inputWrapper}>
+            <ThemedView style={styles.inputWrapper}>
               <TextInput 
                   style={styles.inputBox} 
                   keyboardType='numeric' 
@@ -192,19 +192,19 @@ export default function TabFourScreen() {
           <ThemedView style={styles.billRowContainer}>
             {selectedItem === "register" && (
               <ThemedView style={styles.billRowContainer}>
-              <ThemedView style={styles.inputWrapper}>
-                <TextInput 
-                    style={styles.inputBox} 
-                    keyboardType='numeric' 
-                    value={numberCent} 
-                    onChangeText={text => setNumberCent(text)} 
-                    placeholder="How much in coins?"
-                    placeholderTextColor='grey'
-                />
-              </ThemedView>
-              <ThemedView style={styles.outputBox}>
-                <ThemedText>{numberCent}</ThemedText>
-              </ThemedView>
+                <ThemedView style={styles.inputWrapper}>
+                  <TextInput 
+                      style={styles.inputBox} 
+                      keyboardType='numeric' 
+                      value={numberCent} 
+                      onChangeText={text => setNumberCent(text)} 
+                      placeholder="How much in coins?"
+                      placeholderTextColor='grey'
+                  />
+                </ThemedView>
+                <ThemedView style={styles.outputBox}>
+                  <ThemedText>{numberCent !== '' ? numberCent : 0}</ThemedText>
+                </ThemedView>
               </ThemedView>
             )}
             {selectedItem === "safe" && (
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inputBox:{
-    
+    flex: 1
   },
   multiplyBox: {
     justifyContent: 'center',
