@@ -53,10 +53,11 @@ export default function TabFiveScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Reports</ThemedText>
       </ThemedView>
-      <ThemedText>This page will allow you to take pictures of your cash report and send them to the appropriate email (reports@tpumps.com).</ThemedText>
-      <ThemedText>Day (4PM) Subject: FM Day Cashier [MMDDYYYY]</ThemedText>
-      <ThemedText>Night (~9:30PM-10PM) Subject: FM NIGHT CASH [MMDDYYYY] </ThemedText>
-
+      <ThemedText>This page allows you to send pictures of your cash report to the higher-ups via email (reports@tpumps.com).</ThemedText>
+      <ThemedText>There are different formats for the subject line depending on whether you are closing or opening:</ThemedText>
+      <ThemedText><ThemedText type="defaultSemiBoldUnderline">Day (~4PM) Subject:</ThemedText> FM Day Cashier MMDDYYYY</ThemedText>
+      <ThemedText><ThemedText type="defaultSemiBoldUnderline">Night (~9:30PM-10PM) Subject:</ThemedText> FM NIGHT CASH MMDDYYYY </ThemedText>
+      <ThemedText>The subject line will be automatically entered for you based on the time you're sending your report. However, please take an additional moment to ensure its accuracy.</ThemedText>
       <Pressable onPress={sendEmail}>
         <ThemedView style={styles.emailButtonStyle}>
           <ThemedText style={styles.emailButtonTxtStyle}>Send Your Report</ThemedText>
