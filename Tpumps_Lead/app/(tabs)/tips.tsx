@@ -21,19 +21,16 @@ export default function TabThreeScreen() {
         <ThemedText type="title">Tips & Tricks</ThemedText>
       </ThemedView>
       <ThemedText>This page includes some tips compiled from other leads that helped them run the store efficiently. Tips for specific store locations may come soon!</ThemedText>
-      <Collapsible title="FAQ's about Catering Orders">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
+      <Collapsible title="How to Respond to Questions About Catering Orders">
+        <ThemedText type="italic">
+          "We just make the orders, but from what we've seen, people order rental tanks and/or a certain number of drinks for them. 
+          If you have any questions, send them over to our catering department's email:{' '}<ThemedText type="defaultSemiBoldUnderline">catering@tpumps.com</ThemedText>."
         </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
+        <ThemedText type="defaultSemiBoldUnderline">People usually have catering orders for:</ThemedText>
+        <Unorderedlist bulletUnicode={0x2022} color='white'><ThemedText type="italic">Birthdays</ThemedText></Unorderedlist>
+        <Unorderedlist bulletUnicode={0x2022} color='white'><ThemedText type="italic">Weddings</ThemedText></Unorderedlist>
+        <Unorderedlist bulletUnicode={0x2022} color='white'><ThemedText type="italic">School Events and Fundraisers</ThemedText></Unorderedlist>
+        
       </Collapsible>
       <Collapsible title="How many breaks do my workers have?">
         <ThemedText>

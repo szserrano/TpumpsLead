@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   dropdownButtonStyle: {
-    width: 350,
+    flex: 1,
     height: 50,
     backgroundColor: '#E9ECEF',
     borderRadius: 12,
@@ -366,7 +366,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 18,
     fontWeight: '500',
-    color: '#151E26',
+    color: '#0665fd',
     textAlign: 'center'
   },
   dropdownButtonArrowStyle: {
