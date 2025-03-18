@@ -62,7 +62,7 @@ export default function TabSixScreen() {
         await getDocs(timesColRef)
         .then((snapshot) => {
           snapshot.docs.forEach((doc) => {
-            console.log(doc.id, doc.data().minutes, doc.data().seconds)
+            //console.log(doc.id, doc.data().minutes, doc.data().seconds)
             let totalSeconds = (doc.data().minutes * 60) + doc.data().seconds
             setTimesData(prevItems => [...prevItems, {value: totalSeconds}])
           })
@@ -75,7 +75,7 @@ export default function TabSixScreen() {
     };
 
     fetchData();
-    console.log("timesData after fetchData call: ", timesData)
+    //console.log("timesData after fetchData call: ", timesData)
   }, []);
 
   // const addTimeData = (newItem) => {
@@ -117,7 +117,7 @@ export default function TabSixScreen() {
           color="#808080"
           name="stopwatch"
           style={styles.headerImage}
-        />
+        /> 
       }>
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Performance</ThemedText>
@@ -133,7 +133,15 @@ export default function TabSixScreen() {
       {isLoading ? (<ThemedText>Loading Graphs</ThemedText>)
       : (
         <ThemedView>
-          <LineChart data = {timesData} yAxisColor="#0BA5A4" xAxisColor="#0BA5A4" color={'#177AD5'} />
+          <LineChart 
+            data = {timesData} 
+            dataPointsColor1='#ffffff' 
+            yAxisColor="#0BA5A4" 
+            xAxisColor="#0BA5A4" 
+            xAxisLabelTextStyle={styles.AxisText} 
+            yAxisTextStyle={styles.AxisText} 
+            isAnimated color={'#177AD5'}
+          />
           <PieChart data = {timesData} />
         </ThemedView>
       )
@@ -159,4 +167,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8,
   },
+  AxisText: {
+    color: '#177AD5'
+  }
 });
