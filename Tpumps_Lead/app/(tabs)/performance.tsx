@@ -1,6 +1,6 @@
 import { StyleSheet, Image, Platform, Button } from 'react-native';
 import { useState, useEffect } from 'react';
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../../firebase";
 import { BarChart, LineChart, PieChart, PopulationPyramid, RadarChart } from "react-native-gifted-charts";
 
@@ -19,7 +19,8 @@ export default function TabSixScreen() {
   const [sec, setSec] = useState(0);
   const [min, setMin] = useState(0);
   const [curDate, setCurDate] = useState('');
-  const [timesData, setTimesData] = useState([{value: 0}]);
+  const [timesData, setTimesData] = useState([{value: 0, dataPointText: ''}]);
+  const [datesData, setDatesData] = useState(['']);
   
   // interface TimeData {
   //   value: number;
@@ -57,14 +58,19 @@ export default function TabSixScreen() {
 
   useEffect(() => {                 // Read documents from firestore for display on graph
     const fetchData = async() => {
+      // Clear data arrays
       setTimesData([]);
+      setDatesData([]);
+
       try {
-        await getDocs(timesColRef)
+        const q =query(timesColRef, orderBy("date", "desc"), limit(14))   // query collecting times from last two weeks
+        await getDocs(q)
         .then((snapshot) => {
           snapshot.docs.forEach((doc) => {
             //console.log(doc.id, doc.data().minutes, doc.data().seconds)
             let totalSeconds = (doc.data().minutes * 60) + doc.data().seconds
-            setTimesData(prevItems => [...prevItems, {value: totalSeconds}])
+            setTimesData(prevItems => [...prevItems, {value: totalSeconds, dataPointText: `${totalSeconds}` + ' seconds'}])
+            setDatesData(prevItems => [...prevItems, formatDate(doc.data().date)])
           })
         })
       } catch (err) {
@@ -77,10 +83,6 @@ export default function TabSixScreen() {
     fetchData();
     //console.log("timesData after fetchData call: ", timesData)
   }, []);
-
-  // const addTimeData = (newItem) => {
-  //   setTimesData(prevItems => [...prevItems, newItem])
-  // }
 
   const handleToggle = () => {
     setIsActive(!isActive);
@@ -108,6 +110,20 @@ export default function TabSixScreen() {
     clearTimer();
   }
 
+  const formatDate = (dateString: string) => {
+    const mon = dateString.slice(0, 2)
+    const day = dateString.slice(2, 4)
+    const year = dateString.slice(4, 8)
+
+    const date = new Date(`${year}-${mon}-${day}`)
+    const formattedDate = date.toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: 'long',
+    })
+
+    return formattedDate
+  }
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#8c0d68' }}
@@ -132,17 +148,23 @@ export default function TabSixScreen() {
       
       {isLoading ? (<ThemedText>Loading Graphs</ThemedText>)
       : (
-        <ThemedView>
+        <ThemedView style={styles.chartContainer}>
           <LineChart 
             data = {timesData} 
             dataPointsColor1='#ffffff' 
+            textColor1='yellow'
+            textShiftY={-8}
+            textShiftX={10}
             yAxisColor="#0BA5A4" 
             xAxisColor="#0BA5A4" 
             xAxisLabelTextStyle={styles.AxisText} 
             yAxisTextStyle={styles.AxisText} 
             isAnimated color={'#177AD5'}
+            xAxisLabelTexts={datesData}
+            textFontSize={10}
+            rotateLabel
+            xAxisTextNumberOfLines={2}
           />
-          <PieChart data = {timesData} />
         </ThemedView>
       )
       }
@@ -161,6 +183,9 @@ const styles = StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     gap: 8,
+  },
+  chartContainer: {
+    paddingBottom: 10,
   },
   timerContainer: {
     flexDirection: 'row',
