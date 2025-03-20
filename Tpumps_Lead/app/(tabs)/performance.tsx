@@ -23,11 +23,12 @@ export default function TabSixScreen() {
   const [datesData, setDatesData] = useState(['']);
   const [tableData, setTableData] = useState([{key: 0, date: '', time: ''}])
   
-  // interface TimeData {
-  //   value: number;
-  // }
+  interface TableData {   // required to declare this for array of recorded times to pass to list rendering 
+    key: number;
+    date: string;
+    time: string;
+  }
 
-  // const timesData: {value: number}[] = [];
   const timesColRef = collection(db, 'times')
 
   useEffect(() => {
@@ -36,11 +37,9 @@ export default function TabSixScreen() {
         setTime(time + 1)
       }, 1000)
       
-      
       setSec((time % 60));
       let remainSeconds = sec % 60;
       let minutes = Math.floor((time - remainSeconds) / 60); 
-      // console.log(minutes);
       setMin(minutes);
 
       return () => clearInterval(intervalID);
@@ -63,30 +62,29 @@ export default function TabSixScreen() {
       setTimesData([]);
       setDatesData([]);
       setTableData([]);
-      let key = 0;
-
+      
+      let newArray: TableData[] = []
       try {
         const q =query(timesColRef, orderBy("date", "desc"), limit(14))   // query collecting times from last two weeks
         await getDocs(q)
         .then((snapshot) => {
-          snapshot.docs.forEach((doc) => {
-            //console.log(doc.id, doc.data().minutes, doc.data().seconds)
+          snapshot.docs.forEach((doc, index) => {
             let totalSeconds = (doc.data().minutes * 60) + doc.data().seconds
             setTimesData(prevItems => [...prevItems, {value: totalSeconds, dataPointText: `${totalSeconds}` + ' seconds'}])
             setDatesData(prevItems => [...prevItems, formatDate(doc.data().date)])
-            setTableData(prevItems => [...prevItems, {key: key, date: formatDate(doc.data().date), time: `${doc.data().minutes} minutes, ${doc.data().seconds} seconds`}])
-            key = key + 1
+            
+            newArray.push({key: index, date: formatDate(doc.data().date), time: `${doc.data().minutes} minutes, ${doc.data().seconds} seconds`})
           })
         })
       } catch (err) {
         console.log("Error receiving collection: ", err)
       } finally {
         setIsLoading(false);
+        setTableData(newArray)
       }
     };
 
     fetchData();
-    //console.log("timesData after fetchData call: ", timesData)
   }, []);
 
   const handleToggle = () => {
@@ -126,7 +124,6 @@ export default function TabSixScreen() {
       month: 'long',
       timeZone: 'UTC'
     })
-    console.log(formattedDate)
     return formattedDate
   }
 
@@ -187,7 +184,7 @@ export default function TabSixScreen() {
             <ThemedView style={styles.timerContainer}>
               <ThemedText type='subtitle'>Most Recent to Oldest Times</ThemedText>
             </ThemedView>
-            {tableData.map((item) => <ThemedText>{`\u2022 ${item.date}: ${item.time}`}</ThemedText>)}
+            {tableData.map((item) => <ThemedText key={item.key}>{`\u2022 `}<ThemedText type='defaultSemiBoldUnderline'>{`${item.date}:`}</ThemedText>{` ${item.time}`}</ThemedText>)}
           </ThemedView> 
         </ThemedView>
       )
