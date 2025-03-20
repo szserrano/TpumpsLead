@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform, Button } from 'react-native';
+import { StyleSheet, FlatList, Platform, Button, Pressable } from 'react-native';
 import { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, query, orderBy, limit } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -21,6 +21,7 @@ export default function TabSixScreen() {
   const [curDate, setCurDate] = useState('');
   const [timesData, setTimesData] = useState([{value: 0, dataPointText: ''}]);
   const [datesData, setDatesData] = useState(['']);
+  const [tableData, setTableData] = useState([{key: 0, date: '', time: ''}])
   
   // interface TimeData {
   //   value: number;
@@ -61,6 +62,8 @@ export default function TabSixScreen() {
       // Clear data arrays
       setTimesData([]);
       setDatesData([]);
+      setTableData([]);
+      let key = 0;
 
       try {
         const q =query(timesColRef, orderBy("date", "desc"), limit(14))   // query collecting times from last two weeks
@@ -71,6 +74,8 @@ export default function TabSixScreen() {
             let totalSeconds = (doc.data().minutes * 60) + doc.data().seconds
             setTimesData(prevItems => [...prevItems, {value: totalSeconds, dataPointText: `${totalSeconds}` + ' seconds'}])
             setDatesData(prevItems => [...prevItems, formatDate(doc.data().date)])
+            setTableData(prevItems => [...prevItems, {key: key, date: formatDate(doc.data().date), time: `${doc.data().minutes} minutes, ${doc.data().seconds} seconds`}])
+            key = key + 1
           })
         })
       } catch (err) {
@@ -119,8 +124,9 @@ export default function TabSixScreen() {
     const formattedDate = date.toLocaleDateString('en-US', {
       day: '2-digit',
       month: 'long',
+      timeZone: 'UTC'
     })
-
+    console.log(formattedDate)
     return formattedDate
   }
 
@@ -142,9 +148,21 @@ export default function TabSixScreen() {
       <ThemedView style={styles.timerContainer}>
         <ThemedText type='subtitle'>{min} Minutes, {sec} Seconds </ThemedText>
       </ThemedView>
-      <Button title={isActive ? 'Pause Timer' : 'Resume Timer'} onPress={handleToggle}/>
-      <Button title='Reset Timer' onPress={clearTimer}/>
-      <Button title='Finish Timer' onPress={finishTimer}/>
+      <Pressable onPress={handleToggle}>
+        <ThemedView style={styles.timerButtonStyle}>
+          <ThemedText style={styles.timerButtonTxtStyle}>{isActive ? 'Pause Timer' : 'Resume Timer'}</ThemedText>
+        </ThemedView>
+      </Pressable>
+      <Pressable onPress={clearTimer}>
+        <ThemedView style={styles.resetTimerButtonStyle}>
+          <ThemedText style={styles.timerButtonTxtStyle}>Reset Timer</ThemedText>
+        </ThemedView>
+      </Pressable>
+      <Pressable onPress={finishTimer}>
+        <ThemedView style={styles.finishTimerButtonStyle}>
+          <ThemedText style={styles.timerButtonTxtStyle}>Finish Timer</ThemedText>
+        </ThemedView>
+      </Pressable>
       
       {isLoading ? (<ThemedText>Loading Graphs</ThemedText>)
       : (
@@ -165,6 +183,12 @@ export default function TabSixScreen() {
             rotateLabel
             xAxisTextNumberOfLines={2}
           />
+          <ThemedView style={styles.listContainer}>
+            <ThemedView style={styles.timerContainer}>
+              <ThemedText type='subtitle'>Most Recent to Oldest Times</ThemedText>
+            </ThemedView>
+            {tableData.map((item) => <ThemedText>{`\u2022 ${item.date}: ${item.time}`}</ThemedText>)}
+          </ThemedView> 
         </ThemedView>
       )
       }
@@ -186,6 +210,47 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     paddingBottom: 10,
+  },
+  timerButtonStyle: {
+    flex: 1,
+    height: 50,
+    backgroundColor: '#E9ECEF',
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+  },
+  resetTimerButtonStyle: {
+    flex: 1,
+    height: 50,
+    backgroundColor: '#f5f542',
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+  },
+  finishTimerButtonStyle: {
+    flex: 1,
+    height: 50,
+    backgroundColor: '#f59542',
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+  },
+  timerButtonTxtStyle: {
+    flex: 1,
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#0665fd',
+    textAlign: 'center'
+  },
+  listContainer: {
+    flex: 1,
+    paddingTop: 22
   },
   timerContainer: {
     flexDirection: 'row',
