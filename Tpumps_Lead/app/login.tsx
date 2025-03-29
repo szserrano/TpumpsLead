@@ -2,7 +2,7 @@
  import { StyleSheet } from 'react-native';
  import { ThemedText } from '@/components/ThemedText';
  import { ThemedView } from '@/components/ThemedView';
- import auth from '@react-native-firebase/auth'
+ import { auth } from '../firebase'
  import { FirebaseError } from 'firebase/app';
  import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
@@ -14,7 +14,7 @@ export default function login() {
     const signUp = async () => {
         setLoading(true)
         try{
-            await auth().createUserWithEmailAndPassword(email, password);
+            await createUserWithEmailAndPassword(auth, email, password);
             alert('Check your email!');
         } catch (e: any) {
             const err = e as FirebaseError;
@@ -27,7 +27,7 @@ export default function login() {
     const signIn = async () => {
         setLoading(true);
         try{
-            await auth().signInWithEmailAndPassword(email, password);
+            await signInWithEmailAndPassword(auth, email, password);
         } catch (e: any) {
             const err = e as FirebaseError;
             alert('Sign in faild: ' + err.message);
